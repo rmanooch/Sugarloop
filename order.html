@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order | Sugarloop</title>
+  <meta name="description" content="Request a custom cake from Sugarloop.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">Sugar<span>loop</span></a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cakes.html">Cakes</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="order.html" aria-current="page">Order</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="container">
+        <h1 class="section-title">Order a cake</h1>
+        <!-- Static sites can't process forms on their own. Point the action at a form
+             service such as Formspree or Netlify Forms when you're ready. -->
+        <form class="form" action="#" method="POST">
+          <label>Name
+            <input type="text" name="name" required>
+          </label>
+          <label>Email
+            <input type="email" name="email" required>
+          </label>
+          <label>Cake type
+            <select name="cake">
+              <option>Celebration cake</option>
+              <option>Wedding cake</option>
+              <option>Cupcakes</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label>Date needed
+            <input type="date" name="date">
+          </label>
+          <label>Tell us about your cake
+            <textarea name="message" placeholder="Flavours, size, design ideas..."></textarea>
+          </label>
+          <button class="btn" type="submit">Send request</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Sugarloop. Baked with love.</p>
+      <p><a href="mailto:hello@sugarloop.example">hello@sugarloop.example</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
