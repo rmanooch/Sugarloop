@@ -28,7 +28,7 @@ Then visit http://localhost:8000.
 ## Next steps
 
 - Add your cake photos to `images/` using the file names below. Until a photo is added, the page shows a blush frame labelled with the missing file name.
-- Update prices, flavours and the contact email.
+- Update the menu descriptions and flavours as needed.
 
 ## Order form
 

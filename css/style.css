@@ -340,7 +340,6 @@ img { max-width: 100%; display: block; }
 .menu-item .photo { aspect-ratio: 1; margin-bottom: 18px; }
 .menu-item h3 { font-size: 1.6rem; margin-bottom: 6px; }
 .menu-item p { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 6px; }
-.menu-item .price { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; }
 
 .flavours {
   display: grid;
