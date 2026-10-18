@@ -82,8 +82,6 @@ img { max-width: 100%; display: block; }
 
 .button:hover { background: transparent; color: var(--ink); }
 
-.button--light { background: var(--paper); color: var(--ink); border-color: var(--paper); }
-.button--light:hover { background: transparent; color: var(--paper); }
 
 /* Photos: a warm frame shows through until the real image is added */
 .photo {
@@ -201,47 +199,36 @@ img { max-width: 100%; display: block; }
   color: var(--ink);
 }
 
-/* Hero */
+/* Hero: text beside the photo, so the whole photo shows */
 .hero {
-  position: relative;
-  height: min(86vh, 760px);
-  min-height: 520px;
-  color: var(--paper);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: min(86vh, 760px);
+  background: var(--blush);
 }
-
-.hero .photo { position: absolute; inset: 0; }
-
-.hero .photo::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(43, 34, 32, 0.68) 0%, rgba(43, 34, 32, 0.3) 45%, rgba(43, 34, 32, 0.05) 75%);
-  z-index: 1;
-}
-
-.hero .photo.is-missing::before { background: none; }
 
 .hero-content {
-  position: relative;
-  z-index: 2;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-start;
-  padding-bottom: 80px;
+  padding: 80px 64px 80px max(24px, calc((100vw - var(--max)) / 2 + 24px));
 }
-
-.hero .photo.is-missing + .hero-content { color: var(--ink); }
-.hero .photo.is-missing + .hero-content .button--light { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-
-.hero .eyebrow { color: inherit; opacity: 0.85; }
 
 .hero h1 {
-  font-size: clamp(3rem, 7vw, 5.6rem);
-  max-width: 10ch;
+  font-size: clamp(3rem, 5.5vw, 5rem);
+  max-width: 11ch;
+  margin-bottom: 20px;
+}
+
+.hero-sub {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  max-width: 34ch;
   margin-bottom: 32px;
 }
+
+.hero .photo { min-height: 100%; }
 
 /* Sections */
 .section { padding: 120px 0; }
@@ -453,8 +440,9 @@ img { max-width: 100%; display: block; }
   .nav { display: none; flex-direction: column; gap: 0; padding: 0 0 12px; text-align: center; }
   .nav.is-open { display: flex; }
   .nav a { display: block; padding: 12px 0; border: 0; }
-  .hero-content { padding-bottom: 48px; }
-  .hero .photo::before { background: linear-gradient(0deg, rgba(43, 34, 32, 0.75) 0%, rgba(43, 34, 32, 0.35) 55%, rgba(43, 34, 32, 0.05) 85%); }
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .hero .photo { order: -1; aspect-ratio: 1; min-height: 0; }
+  .hero-content { padding: 40px 16px 56px; }
   .collections, .menu-grid, .flavours, .steps, .form { grid-template-columns: 1fr; }
   .step, .step + .step { padding: 28px 0 0; border-left: 0; }
   .section-head { flex-direction: column; align-items: flex-start; }
