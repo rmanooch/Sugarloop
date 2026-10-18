@@ -51,14 +51,6 @@ The form on `order.html` is sent through [FormSubmit](https://formsubmit.co), wh
 
 ## Deploying
 
-The site is hosted on GitHub Pages (Settings → Pages → branch `main`, folder `/ (root)`) at **https://sugarloopco.com**. The `CNAME` file tells GitHub Pages which domain to serve; don't delete it.
+The site is hosted on GitHub Pages (Settings → Pages → branch `main`, folder `/ (root)`) at **https://rmanooch.github.io/Sugarloop/**.
 
-The domain is registered with Wix, and its DNS records (managed in Wix) point to GitHub Pages:
-
-| Type | Host | Value |
-|---|---|---|
-| A | `@` | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
-| CNAME | `www` | `rmanooch.github.io` |
+A custom domain (sugarloopco.com, registered with Wix) can be connected later: add it under Settings → Pages → Custom domain, point its DNS at GitHub Pages (four `A` records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, and a `CNAME` for `www` → `rmanooch.github.io`), and update the `_next` URL in `order.html`.
