@@ -285,35 +285,52 @@ img { max-width: 100%; display: block; }
 .menu-item p { color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
 
 /* Order form */
-.form-wrap { max-width: 720px; }
+.form-wrap { max-width: 640px; }
 
-.form { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 24px; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 20px; }
 .form .full { grid-column: 1 / -1; }
 
 .form label {
   display: grid;
   gap: 8px;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--ink);
 }
 
 .form input, .form select, .form textarea {
   font: inherit;
   font-size: 1rem;
-  letter-spacing: normal;
-  text-transform: none;
+  font-weight: 300;
   color: var(--ink);
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid var(--ink-soft);
-  border-radius: 0;
-  padding: 10px 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px 16px;
+  width: 100%;
+  min-height: 50px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.form input:focus, .form select:focus, .form textarea:focus { outline: none; border-bottom-color: var(--ink); }
-.form textarea { min-height: 120px; resize: vertical; }
-.form .button { justify-self: center; margin-top: 8px; }
+.form input::placeholder, .form textarea::placeholder { color: #b3a49e; }
+
+.form input:focus, .form select:focus, .form textarea:focus {
+  outline: none;
+  border-color: var(--rose);
+  box-shadow: 0 0 0 3px rgba(227, 135, 137, 0.18);
+}
+
+.form select {
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%236b5a55' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.form textarea { min-height: 140px; resize: vertical; }
+.form .button { justify-self: stretch; margin-top: 6px; border-radius: 8px; padding: 17px 32px; }
 
 /* Footer */
 .site-footer {
