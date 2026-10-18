@@ -16,6 +16,9 @@
 
 html { scroll-behavior: smooth; }
 
+/* Keep anchored sections clear of the sticky header */
+section[id] { scroll-margin-top: 140px; }
+
 body {
   margin: 0;
   font-family: var(--sans);
@@ -275,14 +278,14 @@ img { max-width: 100%; display: block; }
 /* Collections */
 .collections {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
 .collection { text-decoration: none; display: block; }
 .collection .photo { aspect-ratio: 4 / 5; margin-bottom: 18px; }
 .collection:hover .photo img { transform: scale(1.04); }
-.collection h3 { font-size: 1.7rem; margin-bottom: 4px; }
+.collection h3 { font-size: 1.6rem; margin-bottom: 4px; }
 .collection span { font-size: 0.85rem; color: var(--ink-soft); }
 
 /* Split feature */

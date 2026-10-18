@@ -6,7 +6,7 @@ Static website for Sugarloop Co, a cake business. Plain HTML, CSS and JavaScript
 
 ```
 index.html   Home page
-cakes.html   Cake menu
+cakes.html   Menu (cakes, cupcakes, baklava)
 about.html   About the business
 order.html   Order / contact form
 css/         Styles
@@ -35,10 +35,11 @@ Then visit http://localhost:8000.
 | File | Where it appears |
 |---|---|
 | `hero.jpg` | Big banner on the home page (wide/landscape works best) |
-| `celebration.jpg`, `cupcakes.jpg`, `wedding.jpg` | "Shop by occasion" tiles on the home page (portrait) |
+| `celebration.jpg`, `cupcakes.jpg`, `baklava.jpg`, `wedding.jpg` | "Our treats" tiles on the home page (portrait) |
 | `baker.jpg` | "Our story" section on the home page (portrait) |
 | `about.jpg` | Our Story page (portrait) |
-| `cake-1.jpg` … `cake-6.jpg` | Cakes page menu (square) |
+| `cake-1.jpg` … `cake-6.jpg` | Menu page, cakes section (square) |
+| `baklava-1.jpg` … `baklava-3.jpg` | Menu page, baklava section (square) |
 | `insta-1.jpg` … `insta-6.jpg` | Instagram strip at the bottom of each page (square) |
 
 ## Deploying with GitHub Pages
