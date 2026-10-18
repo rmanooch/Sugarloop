@@ -6,7 +6,8 @@ if (toggle && nav) {
   toggle.addEventListener('click', () => {
     const open = nav.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.textContent = open ? 'Close' : 'Menu';
+    toggle.innerHTML = open ? '&#10005;' : '&#9776;';
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   });
 }
 
