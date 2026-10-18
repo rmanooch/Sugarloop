@@ -394,6 +394,9 @@ img { max-width: 100%; display: block; }
 @media (max-width: 960px) {
   .split { grid-template-columns: 1fr; gap: 48px; }
   .split--reverse .photo { order: 0; }
+  .split--center-mobile > div { text-align: center; }
+  .split--center-mobile h2::before { margin-left: auto; }
+  .split--center-mobile p { margin-left: auto; margin-right: auto; }
   .menu-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
