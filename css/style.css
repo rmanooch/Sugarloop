@@ -300,6 +300,10 @@ img { max-width: 100%; display: block; }
 .split h2 { font-size: clamp(2.2rem, 4vw, 3.2rem); margin-bottom: 24px; }
 .split p { color: var(--ink-soft); max-width: 46ch; }
 .split .button, .split .link { margin-top: 16px; display: inline-block; }
+.split .lead { font-family: var(--serif); font-size: 1.7rem; line-height: 1.35; color: var(--ink); }
+.split .signature { font-family: var(--serif); font-style: italic; font-size: 1.5rem; line-height: 1.4; color: var(--ink); margin-top: 28px; }
+.split--reverse .photo { order: 2; }
+.page-header .tagline { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--ink-soft); }
 
 /* Steps */
 .steps {
@@ -433,6 +437,7 @@ img { max-width: 100%; display: block; }
 @media (max-width: 960px) {
   .collections, .menu-grid { grid-template-columns: repeat(2, 1fr); }
   .split, .order-layout { grid-template-columns: 1fr; gap: 48px; }
+  .split--reverse .photo { order: 0; }
   .insta-grid { grid-template-columns: repeat(3, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid > :first-child { grid-column: 1 / -1; }
