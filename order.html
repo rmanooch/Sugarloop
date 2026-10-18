@@ -53,9 +53,13 @@
             <li>Prefer to chat? Message us on <a href="https://www.instagram.com/sugarloopco/" target="_blank" rel="noopener">Instagram</a>.</li>
           </ul>
         </div>
-        <!-- Static sites can't receive form submissions on their own. Set the action
-             to a form service such as Formspree when you're ready to go live. -->
-        <form class="form" action="#" method="POST">
+        <!-- Submissions are emailed to sugarloopcollc@gmail.com by FormSubmit (formsubmit.co).
+             The very first submission sends an activation email to that inbox. -->
+        <form class="form" action="https://formsubmit.co/sugarloopcollc@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New cake enquiry from the Sugarloop Co website">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://rmanooch.github.io/Sugarloop/thanks.html">
+          <input type="text" name="_honey" style="display: none" tabindex="-1" autocomplete="off">
           <label>Name
             <input type="text" name="name" required>
           </label>
@@ -130,7 +134,7 @@
         <div>
           <h4>Say hello</h4>
           <ul>
-            <li><a href="mailto:hello@sugarloop.example">hello@sugarloop.example</a></li>
+            <li><a href="mailto:sugarloopcollc@gmail.com">sugarloopcollc@gmail.com</a></li>
             <li><a href="https://www.instagram.com/sugarloopco/" target="_blank" rel="noopener">@sugarloopco</a></li>
           </ul>
         </div>
