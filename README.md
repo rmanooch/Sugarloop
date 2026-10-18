@@ -26,9 +26,20 @@ Then visit http://localhost:8000.
 
 ## Next steps
 
-- Replace the emoji placeholders with real cake photos in `images/`.
+- Add your cake photos to `images/` using the file names below. Until a photo is added, the page shows a blush frame labelled with the missing file name.
 - Update prices, flavours and the contact email.
 - Connect the order form to a form service (e.g. Formspree) so submissions reach you.
+
+## Photos
+
+| File | Where it appears |
+|---|---|
+| `hero.jpg` | Big banner on the home page (wide/landscape works best) |
+| `celebration.jpg`, `cupcakes.jpg`, `wedding.jpg` | "Shop by occasion" tiles on the home page (portrait) |
+| `baker.jpg` | "Our story" section on the home page (portrait) |
+| `about.jpg` | Our Story page (portrait) |
+| `cake-1.jpg` … `cake-6.jpg` | Cakes page menu (square) |
+| `insta-1.jpg` … `insta-6.jpg` | Instagram strip at the bottom of each page (square) |
 
 ## Deploying with GitHub Pages
 
