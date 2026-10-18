@@ -388,6 +388,8 @@ img { max-width: 100%; display: block; }
 
 .site-footer a:hover { color: var(--rose); }
 .site-footer p { margin: 0 0 8px; }
+.site-footer .service-area { font-size: 0.9rem; margin-top: 16px; }
+.site-footer .service-area span { white-space: nowrap; }
 .site-footer .copyright { font-size: 0.8rem; margin-top: 20px; }
 
 /* Responsive */
@@ -419,5 +421,7 @@ img { max-width: 100%; display: block; }
   .collections, .menu-grid, .form { grid-template-columns: 1fr; }
   .collections { gap: 40px; }
   .intro { padding-bottom: 72px; }
+  .site-footer .service-area span { display: block; }
+  .site-footer .service-area .dot { display: none; }
   .intro-logo { width: 240px; }
 }

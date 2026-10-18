@@ -58,3 +58,7 @@ The domain is registered with Wix, and its DNS records (managed in Wix) point to
 ## Link previews
 
 Each page has Open Graph tags so links shared in messages and social apps show a title, description and a 1200 × 630 image (`images/share-*.jpg`). These tags use full `https://www.sugarloopco.com/...` addresses — update them if the domain ever changes.
+
+## Local search
+
+`index.html` includes Bakery structured data (JSON-LD) describing the business, its service area (Maryland), email and Instagram. `sitemap.xml` lists the public pages and `robots.txt` points search engines to it. Add new pages to the sitemap when you create them.
