@@ -49,6 +49,16 @@ The form on `order.html` is sent through [FormSubmit](https://formsubmit.co), wh
 | `cake-1.jpg` … `cake-6.jpg` | Menu page, cakes section (square) |
 | `baklava-1.jpg` … `baklava-3.jpg` | Menu page, baklava section (square) |
 
-## Deploying with GitHub Pages
+## Deploying
 
-Settings → Pages → Source: "Deploy from a branch" → `main` / root. GitHub Pages on a free plan requires the repository to be public.
+The site is hosted on GitHub Pages (Settings → Pages → branch `main`, folder `/ (root)`) at **https://sugarloopco.com**. The `CNAME` file tells GitHub Pages which domain to serve; don't delete it.
+
+The domain is registered with Wix, and its DNS records (managed in Wix) point to GitHub Pages:
+
+| Type | Host | Value |
+|---|---|---|
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| CNAME | `www` | `rmanooch.github.io` |
