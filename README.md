@@ -1,6 +1,6 @@
-# Sugarloop
+# Sugarloop Co
 
-Static website for Sugarloop, a cake business. Plain HTML, CSS and JavaScript, with no build step.
+Static website for Sugarloop Co, a cake business. Plain HTML, CSS and JavaScript, with no build step.
 
 ## Structure
 
