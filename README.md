@@ -27,14 +27,14 @@ Then visit http://localhost:8000.
 
 ## Next steps
 
-- Add your cake photos to `images/` using the file names below. Until a photo is added, the page shows a blush frame labelled with the missing file name.
-- Update the menu descriptions and flavours as needed.
+- Add your cake photos to `images/` using the file names below. Until a photo is added, the page shows a blush frame labeled with the missing file name.
+- Update the menu descriptions and flavors as needed.
 
 ## Order form
 
-The form on `order.html` is sent through [FormSubmit](https://formsubmit.co), which emails each enquiry to sugarloopcollc@gmail.com and then shows `thanks.html`.
+The form on `order.html` is sent through [FormSubmit](https://formsubmit.co), which emails each inquiry to sugarloopcollc@gmail.com and then shows `thanks.html`.
 
-- **Activation:** the first time the form is submitted from the live site, FormSubmit emails an activation link to sugarloopcollc@gmail.com. Click it once; enquiries are only delivered after that.
+- **Activation:** the first time the form is submitted from the live site, FormSubmit emails an activation link to sugarloopcollc@gmail.com. Click it once; inquiries are only delivered after that.
 - **Hiding the address (optional):** after activating, FormSubmit sends a random alias. Replace the email in the form's `action` with it so the address isn't visible in the page source.
 - The form only works on the live site (GitHub Pages), not when opening the file directly on your computer.
 
