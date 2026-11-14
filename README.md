@@ -6,7 +6,7 @@ Static website for Sugarloop Co, a cake business. Plain HTML, CSS and JavaScript
 
 ```
 index.html   Home page
-cakes.html   Menu (cakes, cupcakes, baklava)
+cakes.html   Menu with prices (cakes, cupcakes, baklava, Swiss rolls)
 about.html   About the business
 order.html   Order / contact form
 thanks.html  Shown after the order form is sent
@@ -46,8 +46,9 @@ The form on `order.html` is sent through [FormSubmit](https://formsubmit.co), wh
 | `celebration.jpg`, `cupcakes.jpg`, `baklava.jpg` | "Our treats" tiles on the home page (portrait) |
 | `baker.jpg` | "Made with love" section on the home page (portrait) |
 | `about.jpg`, `story-baklava.jpg` | Our Story page (portrait) |
-| `cake-1.jpg` … `cake-6.jpg` | Menu page, cakes section (square) |
-| `baklava-1.jpg` … `baklava-3.jpg` | Menu page, baklava section (square) |
+| `menu-princess-cake.jpg`, `cake-6.jpg`, `menu-baklava.jpg`, `menu-swiss-roll.jpg` | Menu page: Custom Cakes, Cupcakes, Baklava and Swiss Roll sections |
+| `cake-1.jpg`, `cake-2.jpg`, `cake-3.jpg`, `cake-5.jpg` | Menu page: row of cake photos under Custom Cakes |
+| `share-*.jpg` | Link previews when the site is shared |
 
 ## Deploying
 

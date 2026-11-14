@@ -26,7 +26,7 @@ document.querySelectorAll('.photo img').forEach((img) => {
 
 // Gently fade sections in as they scroll into view (skipped when the visitor prefers reduced motion)
 const revealTargets = document.querySelectorAll(
-  '.section-title, .collection, .menu-item, .split > *, .statement, .cta, .intro, .form-wrap'
+  '.section-title, .collection, .menu-section > *, .cake-gallery .photo, .split > *, .statement, .cta, .intro, .form-wrap'
 );
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -43,8 +43,8 @@ if ('IntersectionObserver' in window && !reduceMotion) {
   revealTargets.forEach((el, i) => {
     el.classList.add('reveal');
     // Stagger items that sit side by side in a grid
-    if (el.matches('.collection, .menu-item')) {
-      el.style.transitionDelay = `${(i % 3) * 90}ms`;
+    if (el.matches('.collection, .cake-gallery .photo')) {
+      el.style.transitionDelay = `${(i % 4) * 90}ms`;
     }
     observer.observe(el);
   });

@@ -210,7 +210,8 @@ img { max-width: 100%; display: block; }
 .section-title::before,
 .page-header h1::before,
 .cta h2::before,
-.split h2::before {
+.split h2::before,
+.menu-body h2::before {
   content: "";
   display: block;
   width: 18px;
@@ -219,7 +220,7 @@ img { max-width: 100%; display: block; }
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12C6.2 11.4 11.4 6.2 12 0z' fill='%23b8893e'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-.split h2::before { margin-left: 0; }
+.split h2::before, .menu-body h2::before { margin-left: 0; }
 
 /* Fade-in on scroll (classes added by main.js) */
 .reveal {
@@ -298,15 +299,91 @@ img { max-width: 100%; display: block; }
 .cta p { color: var(--ink-soft); margin-bottom: 32px; }
 
 /* Menu */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 56px 32px;
+.menu-jump {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
 }
 
-.menu-item .photo { aspect-ratio: 1; margin-bottom: 20px; }
-.menu-item h3 { font-size: 1.6rem; margin-bottom: 6px; }
-.menu-item p { color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
+.menu-jump a {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 9px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.menu-jump a:hover { border-color: var(--rose); color: var(--rose); }
+
+.menu-section {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.menu-section .photo { aspect-ratio: 4 / 3; border-radius: 4px; }
+.menu-section--reverse .photo { order: 2; }
+
+.menu-body h2 { font-size: clamp(2.2rem, 4vw, 3rem); margin-bottom: 8px; }
+.menu-body h2 small { font-size: 0.55em; color: var(--ink-soft); font-style: italic; }
+
+.menu-body h3 {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 28px 0 6px;
+}
+
+.price-list { list-style: none; margin: 0; padding: 0; }
+
+.price-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 0;
+}
+
+.price-list .item { font-family: var(--serif); font-size: 1.35rem; }
+.price-list .item small { font-family: var(--sans); font-size: 0.8rem; color: var(--ink-soft); }
+.price-list .leader { flex: 1; border-bottom: 1px dotted #cdb5aa; transform: translateY(-5px); min-width: 24px; }
+.price-list .price { font-weight: 400; white-space: nowrap; }
+
+.flavor-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.flavor-list li {
+  font-size: 0.9rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--soft);
+}
+
+.menu-note { color: var(--ink-soft); font-size: 0.95rem; font-style: italic; margin: 18px 0 0; }
+
+.cake-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 72px;
+}
+
+.cake-gallery .photo { aspect-ratio: 1; border-radius: 4px; }
 
 /* Order form */
 .form-wrap { max-width: 640px; }
@@ -396,10 +473,13 @@ img { max-width: 100%; display: block; }
 @media (max-width: 960px) {
   .split { grid-template-columns: 1fr; gap: 48px; }
   .split--reverse .photo { order: 0; }
+  .menu-section { grid-template-columns: 1fr; gap: 36px; }
+  .menu-section--reverse .photo { order: 0; }
+  .menu-section .photo { max-width: 520px; width: 100%; margin: 0 auto; }
+  .cake-gallery { grid-template-columns: repeat(2, 1fr); }
   .split--center-mobile > div { text-align: center; }
   .split--center-mobile h2::before { margin-left: auto; }
   .split--center-mobile p { margin-left: auto; margin-right: auto; }
-  .menu-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 720px) {
@@ -418,7 +498,7 @@ img { max-width: 100%; display: block; }
   .hero { grid-template-columns: 1fr; min-height: 0; }
   .hero .photo { order: -1; aspect-ratio: 1; min-height: 0; }
   .hero-content { padding: 40px 16px 56px; }
-  .collections, .menu-grid, .form { grid-template-columns: 1fr; }
+  .collections, .form { grid-template-columns: 1fr; }
   .collections { gap: 40px; }
   .intro { padding-bottom: 72px; }
   .site-footer .service-area span { display: block; }
