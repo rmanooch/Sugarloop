@@ -387,6 +387,7 @@ img { max-width: 100%; display: block; }
 .cake-gallery--pair { display: flex; justify-content: center; gap: 16px; }
 .cake-gallery--pair .photo { margin: 0; height: 420px; }
 .cake-gallery--pair .photo img { height: 100%; width: auto; }
+.swipe-hint { display: none; margin: 10px 0 0; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--ink-soft); text-align: center; }
 
 /* Photo viewer */
 .photo.is-zoomable { cursor: zoom-in; }
@@ -576,4 +577,30 @@ body.lightbox-open { overflow: hidden; }
   .site-footer .service-area span { display: block; }
   .site-footer .service-area .dot { display: none; }
   .intro-logo { width: 240px; }
+  /* Menu on phones: short banner photos and swipeable photo rows keep the prices flowing */
+  .menu-section { gap: 24px; }
+  .menu-section .photo { aspect-ratio: 3 / 2; max-width: none; }
+  .menu-section .photo img { height: 100%; object-fit: cover; }
+  .cake-gallery, .cake-gallery--pair {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin: 28px -16px 0;
+    padding: 0 16px 6px;
+    scrollbar-width: none;
+  }
+  .cake-gallery::-webkit-scrollbar { display: none; }
+  .gallery-row { display: contents; }
+  .cake-gallery .photo, .gallery-row .photo, .cake-gallery--pair .photo {
+    flex: 0 0 auto;
+    height: 170px;
+    margin: 0;
+    scroll-snap-align: start;
+  }
+  .cake-gallery .photo img { height: 100%; width: auto; }
+  .cake-gallery--pair { justify-content: center; }
+  .cake-gallery--pair .photo { height: 240px; }
+  .swipe-hint { display: block; }
 }
