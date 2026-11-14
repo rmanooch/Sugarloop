@@ -328,7 +328,8 @@ img { max-width: 100%; display: block; }
   align-items: center;
 }
 
-.menu-section .photo { aspect-ratio: 4 / 3; border-radius: 4px; }
+.menu-section .photo { border-radius: 4px; }
+.menu-section .photo img { height: auto; }
 .menu-section--reverse .photo { order: 2; }
 
 .menu-body h2 { font-size: clamp(2.2rem, 4vw, 3rem); margin-bottom: 8px; }
@@ -376,15 +377,16 @@ img { max-width: 100%; display: block; }
 
 .menu-note { color: var(--ink-soft); font-size: 0.95rem; font-style: italic; margin: 18px 0 0; }
 
-.cake-gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 72px;
-}
+/* Each row is sized so photos keep their own shape (nothing cropped) and line up top and bottom */
+.cake-gallery { margin-top: 72px; }
+.gallery-row { display: flex; gap: 16px; margin-bottom: 16px; }
+.gallery-row .photo { flex: var(--ar) 1 0; min-width: 0; }
 
-.cake-gallery .photo { aspect-ratio: 1; border-radius: 4px; }
-.cake-gallery--pair { grid-template-columns: repeat(2, minmax(0, 280px)); justify-content: center; }
+.cake-gallery .photo { border-radius: 4px; }
+.cake-gallery .photo img { height: auto; }
+.cake-gallery--pair { display: flex; justify-content: center; gap: 16px; }
+.cake-gallery--pair .photo { margin: 0; height: 420px; }
+.cake-gallery--pair .photo img { height: 100%; width: auto; }
 
 /* Photo viewer */
 .photo.is-zoomable { cursor: zoom-in; }
@@ -539,7 +541,10 @@ body.lightbox-open { overflow: hidden; }
   .menu-section { grid-template-columns: 1fr; gap: 36px; }
   .menu-section--reverse .photo { order: 0; }
   .menu-section .photo { max-width: 520px; width: 100%; margin: 0 auto; }
-  .cake-gallery { grid-template-columns: repeat(2, 1fr); }
+  /* Phones: two photos per row, still uncropped */
+  .gallery-row { flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+  .gallery-row .photo { flex: var(--ar) 1 calc(var(--ar) * 120px); }
+  .cake-gallery--pair .photo { height: 300px; }
   .split--center-mobile > div { text-align: center; }
   .split--center-mobile h2::before { margin-left: auto; }
   .split--center-mobile p { margin-left: auto; margin-right: auto; }
