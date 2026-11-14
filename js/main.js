@@ -77,6 +77,111 @@ if (thanksHeading) {
   }
 }
 
+// Photo viewer: tap a menu photo to see the whole, uncropped picture
+const zoomable = [...document.querySelectorAll('img[data-full]')];
+
+if (zoomable.length) {
+  const viewer = document.createElement('div');
+  viewer.className = 'lightbox';
+  viewer.setAttribute('role', 'dialog');
+  viewer.setAttribute('aria-modal', 'true');
+  viewer.setAttribute('aria-label', 'Photo viewer');
+  viewer.hidden = true;
+  viewer.innerHTML = `
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <button class="lightbox-prev" aria-label="Previous photo">&lsaquo;</button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-img" alt="">
+      <figcaption class="lightbox-caption"></figcaption>
+    </figure>
+    <button class="lightbox-next" aria-label="Next photo">&rsaquo;</button>`;
+  document.body.appendChild(viewer);
+
+  const img = viewer.querySelector('.lightbox-img');
+  const caption = viewer.querySelector('.lightbox-caption');
+  const closeBtn = viewer.querySelector('.lightbox-close');
+  let current = 0;
+  let lastFocus = null;
+
+  const show = (i) => {
+    current = (i + zoomable.length) % zoomable.length;
+    const thumb = zoomable[current];
+    img.src = thumb.dataset.full;
+    img.alt = thumb.alt;
+    caption.textContent = thumb.alt;
+  };
+
+  const open = (i) => {
+    lastFocus = document.activeElement;
+    show(i);
+    viewer.hidden = false;
+    document.body.classList.add('lightbox-open');
+    closeBtn.focus();
+  };
+
+  const close = () => {
+    viewer.hidden = true;
+    document.body.classList.remove('lightbox-open');
+    if (lastFocus) {
+      lastFocus.focus();
+    }
+  };
+
+  zoomable.forEach((thumb, i) => {
+    const frame = thumb.closest('.photo');
+    frame.classList.add('is-zoomable');
+    frame.tabIndex = 0;
+    frame.setAttribute('role', 'button');
+    frame.setAttribute('aria-label', `View larger photo: ${thumb.alt}`);
+    frame.addEventListener('click', () => open(i));
+    frame.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open(i);
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+  viewer.querySelector('.lightbox-prev').addEventListener('click', () => show(current - 1));
+  viewer.querySelector('.lightbox-next').addEventListener('click', () => show(current + 1));
+  // Tapping the dark background (not the photo or buttons) closes the viewer
+  viewer.addEventListener('click', (e) => {
+    if (e.target === viewer || e.target.classList.contains('lightbox-figure')) {
+      close();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (viewer.hidden) {
+      return;
+    }
+    if (e.key === 'Escape') {
+      close();
+    } else if (e.key === 'ArrowLeft') {
+      show(current - 1);
+    } else if (e.key === 'ArrowRight') {
+      show(current + 1);
+    }
+  });
+
+  // Swipe left or right on phones
+  let touchX = null;
+  viewer.addEventListener('touchstart', (e) => {
+    touchX = e.touches[0].clientX;
+  }, { passive: true });
+  viewer.addEventListener('touchend', (e) => {
+    if (touchX === null) {
+      return;
+    }
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) {
+      show(current + (dx < 0 ? 1 : -1));
+    }
+    touchX = null;
+  });
+}
+
 // Footer year
 const year = document.getElementById('year');
 if (year) {

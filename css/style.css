@@ -386,6 +386,68 @@ img { max-width: 100%; display: block; }
 .cake-gallery .photo { aspect-ratio: 1; border-radius: 4px; }
 .cake-gallery--pair { grid-template-columns: repeat(2, minmax(0, 280px)); justify-content: center; }
 
+/* Photo viewer */
+.photo.is-zoomable { cursor: zoom-in; }
+.photo.is-zoomable:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.photo.is-zoomable:hover img { transform: scale(1.03); }
+
+body.lightbox-open { overflow: hidden; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 22, 20, 0.92);
+  padding: 56px 72px;
+}
+
+.lightbox[hidden] { display: none; }
+
+.lightbox-figure {
+  margin: 0;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.lightbox-img {
+  max-width: min(1100px, 100%);
+  max-height: calc(100vh - 150px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.lightbox-caption { color: #f3e7e1; font-family: var(--serif); font-size: 1.2rem; text-align: center; }
+
+.lightbox button {
+  position: absolute;
+  background: none;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1;
+  opacity: 0.85;
+  width: 48px;
+  height: 48px;
+}
+
+.lightbox button:hover, .lightbox button:focus-visible { opacity: 1; }
+.lightbox-close { top: 12px; right: 12px; font-size: 2.4rem; }
+.lightbox-prev, .lightbox-next { top: 50%; transform: translateY(-50%); font-size: 3.4rem; }
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
+
 /* Order form */
 .form-wrap { max-width: 640px; }
 
@@ -502,6 +564,10 @@ img { max-width: 100%; display: block; }
   .collections, .form { grid-template-columns: 1fr; }
   .collections { gap: 40px; }
   .intro { padding-bottom: 72px; }
+  .lightbox { padding: 64px 12px 72px; }
+  .lightbox-prev, .lightbox-next { top: auto; bottom: 12px; transform: none; }
+  .lightbox-prev { left: 24%; }
+  .lightbox-next { right: 24%; }
   .site-footer .service-area span { display: block; }
   .site-footer .service-area .dot { display: none; }
   .intro-logo { width: 240px; }
