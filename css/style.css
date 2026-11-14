@@ -211,7 +211,8 @@ img { max-width: 100%; display: block; }
 .page-header h1::before,
 .cta h2::before,
 .split h2::before,
-.menu-body h2::before {
+.menu-body h2::before,
+.share-menu-body h2::before {
   content: "";
   display: block;
   width: 18px;
@@ -220,7 +221,7 @@ img { max-width: 100%; display: block; }
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12C6.2 11.4 11.4 6.2 12 0z' fill='%23b8893e'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-.split h2::before, .menu-body h2::before { margin-left: 0; }
+.split h2::before, .menu-body h2::before, .share-menu-body h2::before { margin-left: 0; }
 
 /* Fade-in on scroll (classes added by main.js) */
 .reveal {
@@ -388,6 +389,42 @@ img { max-width: 100%; display: block; }
 .cake-gallery--pair .photo { margin: 0; height: 420px; }
 .cake-gallery--pair .photo img { height: 100%; width: auto; }
 .swipe-hint { display: none; margin: 10px 0 0; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--ink-soft); text-align: center; }
+
+/* Share our menu */
+.menu-jump .menu-jump-share { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.menu-jump .menu-jump-share:hover { background: transparent; color: var(--ink); }
+
+.share-menu {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 900px;
+}
+
+.share-menu-card { border-radius: 6px; box-shadow: 0 12px 32px rgba(43, 34, 32, 0.12); }
+.share-menu-card img { height: auto; }
+.share-menu-body h2 { font-size: clamp(2.2rem, 4vw, 3rem); margin-bottom: 12px; }
+.share-menu-body > p { color: var(--ink-soft); }
+
+.share-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.share-buttons .button { width: 100%; margin-bottom: 4px; }
+
+.share-btn {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.share-btn:hover { border-color: var(--rose); color: var(--rose); }
+.share-status { min-height: 1.5em; margin-top: 12px; font-size: 0.9rem; color: var(--ink-soft); }
 
 /* Photo viewer */
 .photo.is-zoomable { cursor: zoom-in; }
@@ -603,4 +640,8 @@ body.lightbox-open { overflow: hidden; }
   .cake-gallery--pair { justify-content: center; }
   .cake-gallery--pair .photo { height: 240px; }
   .swipe-hint { display: block; }
+  .share-menu { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  .share-menu-card { max-width: 260px; margin: 0 auto; }
+  .share-buttons { justify-content: center; }
+  .share-menu-body h2::before { margin-left: auto; }
 }

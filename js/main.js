@@ -182,6 +182,54 @@ if (zoomable.length) {
   });
 }
 
+// Share the menu by text, email, social apps or the phone's own share sheet
+const shareBox = document.querySelector('.share-menu');
+if (shareBox) {
+  const pageUrl = 'https://www.sugarloopco.com/cakes.html';
+  const imageUrl = 'https://www.sugarloopco.com/images/full/sugarloop-menu.jpg';
+  const message = 'Check out the Sugarloop Co menu: custom cakes, cupcakes, baklava and Swiss rolls!';
+  const full = `${message} ${pageUrl}`;
+  const status = shareBox.querySelector('.share-status');
+
+  const links = {
+    sms: `sms:?&body=${encodeURIComponent(full)}`,
+    email: `mailto:?subject=${encodeURIComponent('Sugarloop Co menu')}&body=${encodeURIComponent(`${message}\n\nMenu: ${pageUrl}\nMenu picture: ${imageUrl}`)}`,
+    whatsapp: `https://wa.me/?text=${encodeURIComponent(full)}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+  };
+  shareBox.querySelectorAll('[data-share]').forEach((a) => {
+    a.href = links[a.dataset.share];
+  });
+
+  // Phones: share the menu picture itself through the native share sheet (Messages, Instagram, etc.)
+  const nativeBtn = shareBox.querySelector('.share-native');
+  if (navigator.share) {
+    nativeBtn.hidden = false;
+    nativeBtn.addEventListener('click', async () => {
+      try {
+        const blob = await fetch('images/full/sugarloop-menu.jpg').then((r) => r.blob());
+        const file = new File([blob], 'Sugarloop-Co-Menu.jpg', { type: 'image/jpeg' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: 'Sugarloop Co menu', text: full });
+        } else {
+          await navigator.share({ title: 'Sugarloop Co menu', text: message, url: pageUrl });
+        }
+      } catch (e) {
+        // Share cancelled or unavailable; the other buttons still work
+      }
+    });
+  }
+
+  shareBox.querySelector('.share-copy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(pageUrl);
+      status.textContent = 'Link copied!';
+    } catch (e) {
+      status.textContent = pageUrl;
+    }
+  });
+}
+
 // Footer year
 const year = document.getElementById('year');
 if (year) {

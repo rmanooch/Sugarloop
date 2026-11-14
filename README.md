@@ -50,6 +50,7 @@ The form on `order.html` is sent through [FormSubmit](https://formsubmit.co), wh
 | `cake-*.jpg` | Menu page: cake photos under Custom Cakes |
 | `roll-vanilla.jpg`, `roll-coffee.jpg` | Menu page: photos under Swiss Roll |
 | `share-*.jpg` | Link previews when the site is shared |
+| `sugarloop-menu.jpg` (+ `full/`) | "Share our menu" card on the Menu page; replace both to update the shareable menu |
 
 ## Deploying
 
