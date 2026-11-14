@@ -330,9 +330,6 @@ img { max-width: 100%; display: block; }
 
 .menu-section .photo { aspect-ratio: 4 / 3; border-radius: 4px; }
 .menu-section--reverse .photo { order: 2; }
-.menu-section--text { grid-template-columns: 1fr; max-width: 560px; }
-.menu-section--text .menu-body h2, .menu-section--text .menu-note { text-align: center; }
-.menu-section--text .menu-body h2::before { margin-left: auto; }
 
 .menu-body h2 { font-size: clamp(2.2rem, 4vw, 3rem); margin-bottom: 8px; }
 .menu-body h2 small { font-size: 0.55em; color: var(--ink-soft); font-style: italic; }
@@ -387,6 +384,7 @@ img { max-width: 100%; display: block; }
 }
 
 .cake-gallery .photo { aspect-ratio: 1; border-radius: 4px; }
+.cake-gallery--pair { grid-template-columns: repeat(2, minmax(0, 280px)); justify-content: center; }
 
 /* Order form */
 .form-wrap { max-width: 640px; }

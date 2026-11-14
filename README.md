@@ -46,8 +46,9 @@ The form on `order.html` is sent through [FormSubmit](https://formsubmit.co), wh
 | `celebration.jpg`, `cupcakes.jpg`, `baklava.jpg` | "Our treats" tiles on the home page (portrait) |
 | `baker.jpg` | "Made with love" section on the home page (portrait) |
 | `about.jpg`, `story-baklava.jpg` | Our Story page (portrait) |
-| `menu-cakes.jpg`, `cake-6.jpg`, `menu-baklava-photo.jpg` | Menu page: Custom Cakes, Cupcakes and Baklava sections |
-| `cake-1.jpg`, `cake-3.jpg`, `cake-4.jpg`, `cake-5.jpg` | Menu page: row of cake photos under Custom Cakes |
+| `menu-cakes.jpg`, `cake-6.jpg`, `menu-baklava-photo.jpg`, `menu-swiss-roll.jpg` | Menu page: Custom Cakes, Cupcakes, Baklava and Swiss Roll sections |
+| `cake-*.jpg` | Menu page: cake photos under Custom Cakes |
+| `roll-vanilla.jpg`, `roll-coffee.jpg` | Menu page: photos under Swiss Roll |
 | `share-*.jpg` | Link previews when the site is shared |
 
 ## Deploying
