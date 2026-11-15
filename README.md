@@ -32,6 +32,8 @@ Then visit http://localhost:8000.
 
 ## Order form
 
+The order builder on `order.html` lists each item with its price in `data-price` attributes. **Prices live in two places: the Menu page (`cakes.html`) and the order builder (`order.html`) — update both.** The Swiss roll add-on price is `ADDON_PRICE` in `js/main.js`.
+
 The form on `order.html` is sent through [FormSubmit](https://formsubmit.co), which emails each inquiry to sugarloopcollc@gmail.com and then shows `thanks.html`.
 
 - **Activation:** the first time the form is submitted from the live site, FormSubmit emails an activation link to sugarloopcollc@gmail.com. Click it once; inquiries are only delivered after that.

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=16">
+  <link rel="stylesheet" href="css/style.css?v=17">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="canonical" href="https://www.sugarloopco.com/order.html">
@@ -66,23 +66,91 @@
           <label>Date needed
             <input type="date" name="date" required>
           </label>
-          <label>What would you like?
-            <select name="cake">
-              <option>Custom cake</option>
-              <option>Sheet cake</option>
-              <option>Cupcakes</option>
-              <option>Baklava box (7 pieces)</option>
-              <option>Baklava full tray (63 pieces)</option>
-              <option>Swiss roll</option>
-              <option>Something else</option>
+          <label>Pickup or delivery
+            <select name="Pickup or delivery">
+              <option>Pickup</option>
+              <option>Delivery</option>
+              <option>Not sure yet</option>
             </select>
           </label>
           <label>Number of guests
             <input type="number" name="guests" min="1">
           </label>
-          <label class="full">Tell us about your cake
-            <textarea name="message" placeholder="Flavors, colors, theme, message on the cake, baklava quantities..."></textarea>
+          <fieldset class="full builder" hidden>
+            <legend>Build your order</legend>
+            <div class="builder-fields">
+              <label class="builder-item">Item
+                <select id="builder-item">
+                <optgroup label="Tier cakes (1 tier)">
+                  <option value="6&Prime; tier cake" data-price="47" data-from data-flavor>6&Prime; tier cake — from $47</option>
+                  <option value="8&Prime; tier cake" data-price="67" data-from data-flavor>8&Prime; tier cake — from $67</option>
+                  <option value="9&Prime; tier cake" data-price="86" data-from data-flavor>9&Prime; tier cake — from $86</option>
+                </optgroup>
+                <optgroup label="Sheet cakes">
+                  <option value="Sheet cake" data-price="76" data-from data-flavor>Sheet cake — from $76</option>
+                </optgroup>
+                <optgroup label="Cupcakes">
+                  <option value="Cupcakes, one dozen" data-price="20" data-from>Cupcakes, one dozen — from $20</option>
+                  <option value="Cupcakes, two dozen" data-price="38">Cupcakes, two dozen — $38</option>
+                </optgroup>
+                <optgroup label="Baklava, box of 7 pieces">
+                  <option value="Walnut baklava box" data-price="11">Walnut baklava box — $11</option>
+                  <option value="Pistachio baklava box" data-price="12">Pistachio baklava box — $12</option>
+                  <option value="Pistachio chocolate baklava box" data-price="13">Pistachio chocolate baklava box — $13</option>
+                </optgroup>
+                <optgroup label="Baklava, full tray (63 pieces)">
+                  <option value="Walnut baklava tray" data-price="93">Walnut baklava tray — $93</option>
+                  <option value="Pistachio baklava tray" data-price="96">Pistachio baklava tray — $96</option>
+                  <option value="Chocolate pistachio baklava tray" data-price="106">Chocolate pistachio baklava tray — $106</option>
+                </optgroup>
+                <optgroup label="Swiss roll (Rollet)">
+                  <option value="Vanilla Swiss roll" data-price="33" data-addon>Vanilla Swiss roll — $33</option>
+                  <option value="Coffee Swiss roll" data-price="38" data-addon>Coffee Swiss roll — $38</option>
+                </optgroup>
+                </select>
+              </label>
+              <label class="builder-flavor">Cake flavor
+                <select id="builder-flavor">
+                <option>Not sure yet</option>
+                <option>Vanilla</option>
+                <option>Chocolate</option>
+                <option>Pistachio</option>
+                <option>Coffee</option>
+                <option>Carrot &amp; Walnuts</option>
+                <option>Strawberry</option>
+                <option>Berries</option>
+                <option>Banana &amp; Walnuts</option>
+                </select>
+              </label>
+              <label class="builder-addon" hidden>Add-on
+                <select id="builder-addon">
+                  <option value="">No add-on</option>
+                  <option value="Berries">Berries (+$7)</option>
+                  <option value="Pistachio">Pistachio (+$7)</option>
+                </select>
+              </label>
+              <label class="builder-qty">Quantity
+                <input id="builder-qty" type="number" min="1" max="20" value="1" inputmode="numeric">
+              </label>
+            </div>
+            <div class="builder-actions">
+              <span class="builder-line-price" aria-live="polite"></span>
+              <button type="button" class="builder-add">+ Add to order</button>
+            </div>
+            <ul class="order-list" aria-live="polite"></ul>
+            <p class="order-empty">Nothing added yet. Choose an item above and tap &ldquo;Add to order&rdquo;.</p>
+            <div class="order-total">
+              <span>Estimated total</span>
+              <strong class="order-total-amount">$0</strong>
+            </div>
+            <p class="estimate-note"><strong>Please note:</strong> this total is an estimate only. Your final price will be confirmed once we&rsquo;ve verified your order and worked through the customization details with you.</p>
+            <input type="hidden" name="Order items" value="">
+            <input type="hidden" name="Estimated total" value="">
+          </fieldset>
+          <label class="full">Tell us about your order
+            <textarea name="message" placeholder="Colors, theme, message on the cake, design ideas, anything else we should know..."></textarea>
           </label>
+          <p class="full form-error" aria-live="polite"></p>
           <button class="button full" type="submit">Send inquiry</button>
         </form>
       </div>
@@ -104,6 +172,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=8"></script>
+  <script src="js/main.js?v=9"></script>
 </body>
 </html>

@@ -50,6 +50,113 @@ if ('IntersectionObserver' in window && !reduceMotion) {
   });
 }
 
+// Order builder: pick items, see an estimated total, and send the list with the inquiry
+const builder = document.querySelector('.builder');
+if (builder) {
+  builder.hidden = false;
+  const form = builder.closest('form');
+  const itemSel = builder.querySelector('#builder-item');
+  const flavorSel = builder.querySelector('#builder-flavor');
+  const addonSel = builder.querySelector('#builder-addon');
+  const qtyInput = builder.querySelector('#builder-qty');
+  const linePrice = builder.querySelector('.builder-line-price');
+  const list = builder.querySelector('.order-list');
+  const empty = builder.querySelector('.order-empty');
+  const totalEl = builder.querySelector('.order-total-amount');
+  const itemsField = form.elements['Order items'];
+  const totalField = form.elements['Estimated total'];
+  const errorEl = form.querySelector('.form-error');
+  const ADDON_PRICE = 7;
+  const order = [];
+
+  const money = (n) => `$${n}`;
+
+  const current = () => {
+    const opt = itemSel.selectedOptions[0];
+    const qty = Math.min(20, Math.max(1, parseInt(qtyInput.value, 10) || 1));
+    const hasFlavor = opt.hasAttribute('data-flavor');
+    const hasAddon = opt.hasAttribute('data-addon');
+    const addon = hasAddon ? addonSel.value : '';
+    const unit = Number(opt.dataset.price) + (addon ? ADDON_PRICE : 0);
+    return {
+      name: opt.textContent.split(' — ')[0],
+      flavor: hasFlavor ? flavorSel.value : '',
+      addon,
+      qty,
+      from: opt.hasAttribute('data-from'),
+      price: unit * qty,
+    };
+  };
+
+  const refreshPicker = () => {
+    const opt = itemSel.selectedOptions[0];
+    builder.querySelector('.builder-flavor').hidden = !opt.hasAttribute('data-flavor');
+    builder.querySelector('.builder-addon').hidden = !opt.hasAttribute('data-addon');
+    const c = current();
+    linePrice.textContent = `${c.from ? 'from ' : ''}${money(c.price)}`;
+  };
+
+  const describe = (c) => {
+    const details = [c.flavor && `${c.flavor} flavor`, c.addon && `${c.addon} add-on`].filter(Boolean).join(', ');
+    return { title: `${c.qty} × ${c.name}`, details };
+  };
+
+  const render = () => {
+    list.innerHTML = '';
+    order.forEach((c, i) => {
+      const { title, details } = describe(c);
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="order-name"></span><span class="order-price"></span>
+        <button type="button" class="order-remove" aria-label="Remove">&times;</button>`;
+      li.querySelector('.order-name').textContent = title;
+      if (details) {
+        const small = document.createElement('small');
+        small.textContent = details;
+        li.querySelector('.order-name').appendChild(small);
+      }
+      li.querySelector('.order-price').textContent = `${c.from ? 'from ' : ''}${money(c.price)}`;
+      li.querySelector('.order-remove').addEventListener('click', () => {
+        order.splice(i, 1);
+        render();
+      });
+      list.appendChild(li);
+    });
+    empty.hidden = order.length > 0;
+    const total = order.reduce((sum, c) => sum + c.price, 0);
+    const anyFrom = order.some((c) => c.from);
+    totalEl.textContent = `${anyFrom ? 'from ' : ''}${money(total)}`;
+    itemsField.value = order.map((c) => {
+      const { title, details } = describe(c);
+      return `${title}${details ? ` (${details})` : ''}: ${c.from ? 'from ' : ''}${money(c.price)}`;
+    }).join(' | ');
+    totalField.value = order.length ? `${anyFrom ? 'from ' : ''}${money(total)} (estimate, to be confirmed)` : '';
+  };
+
+  itemSel.addEventListener('change', refreshPicker);
+  addonSel.addEventListener('change', refreshPicker);
+  qtyInput.addEventListener('input', refreshPicker);
+  builder.querySelector('.builder-add').addEventListener('click', () => {
+    order.push(current());
+    qtyInput.value = 1;
+    errorEl.textContent = '';
+    refreshPicker();
+    render();
+  });
+
+  // Ask for at least one item or a description before sending
+  form.addEventListener('submit', (e) => {
+    if (!order.length && !form.elements.message.value.trim()) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      errorEl.textContent = 'Please add at least one item to your order, or tell us what you’d like in the box above.';
+      builder.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+
+  refreshPicker();
+  render();
+}
+
 // Remember the customer's first name so the thank-you page can greet them
 const orderForm = document.querySelector('.form');
 if (orderForm) {
