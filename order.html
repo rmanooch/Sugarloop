@@ -90,8 +90,8 @@
                   <option value="Sheet cake" data-price="76" data-from data-flavor>Sheet cake — from $76</option>
                 </optgroup>
                 <optgroup label="Cupcakes">
-                  <option value="Cupcakes, one dozen" data-price="20" data-from>Cupcakes, one dozen — from $20</option>
-                  <option value="Cupcakes, two dozen" data-price="38">Cupcakes, two dozen — $38</option>
+                  <option value="Cupcakes, one dozen" data-price="20" data-from data-cupcake>Cupcakes, one dozen — from $20</option>
+                  <option value="Cupcakes, two dozen" data-price="38" data-cupcake>Cupcakes, two dozen — $38</option>
                 </optgroup>
                 <optgroup label="Baklava, box of 7 pieces">
                   <option value="Walnut baklava box" data-price="11">Walnut baklava box — $11</option>
@@ -120,6 +120,12 @@
                 <option>Strawberry</option>
                 <option>Berries</option>
                 <option>Banana &amp; Walnuts</option>
+                </select>
+              </label>
+              <label class="builder-cupcake" hidden>Cupcake flavor
+                <select id="builder-cupcake">
+                  <option>Vanilla</option>
+                  <option>Chocolate</option>
                 </select>
               </label>
               <label class="builder-addon" hidden>Add-on
@@ -172,6 +178,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=10"></script>
+  <script src="js/main.js?v=11"></script>
 </body>
 </html>

@@ -57,6 +57,7 @@ if (builder) {
   const form = builder.closest('form');
   const itemSel = builder.querySelector('#builder-item');
   const flavorSel = builder.querySelector('#builder-flavor');
+  const cupcakeSel = builder.querySelector('#builder-cupcake');
   const addonSel = builder.querySelector('#builder-addon');
   const qtyInput = builder.querySelector('#builder-qty');
   const linePrice = builder.querySelector('.builder-line-price');
@@ -80,7 +81,7 @@ if (builder) {
     const unit = Number(opt.dataset.price) + (addon ? ADDON_PRICE : 0);
     return {
       name: opt.textContent.split(' — ')[0],
-      flavor: hasFlavor ? flavorSel.value : '',
+      flavor: hasFlavor ? flavorSel.value : (opt.hasAttribute('data-cupcake') ? cupcakeSel.value : ''),
       addon,
       qty,
       from: opt.hasAttribute('data-from'),
@@ -91,6 +92,7 @@ if (builder) {
   const refreshPicker = () => {
     const opt = itemSel.selectedOptions[0];
     builder.querySelector('.builder-flavor').hidden = !opt.hasAttribute('data-flavor');
+    builder.querySelector('.builder-cupcake').hidden = !opt.hasAttribute('data-cupcake');
     builder.querySelector('.builder-addon').hidden = !opt.hasAttribute('data-addon');
     const c = current();
     linePrice.textContent = `${c.from ? 'from ' : ''}${money(c.price)}`;
