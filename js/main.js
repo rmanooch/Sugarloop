@@ -186,7 +186,7 @@ if (zoomable.length) {
 const shareBox = document.querySelector('.share-menu');
 if (shareBox) {
   const pageUrl = 'https://www.sugarloopco.com/cakes.html';
-  const imageUrl = 'https://www.sugarloopco.com/images/full/sugarloop-menu.jpg';
+  const imageUrl = 'https://www.sugarloopco.com/images/full/sugarloop-menu.jpg?v=2';
   const message = 'Check out the Sugarloop Co menu: custom cakes, cupcakes, baklava and Swiss rolls!';
   const full = `${message} ${pageUrl}`;
   const status = shareBox.querySelector('.share-status');
@@ -207,7 +207,7 @@ if (shareBox) {
     nativeBtn.hidden = false;
     nativeBtn.addEventListener('click', async () => {
       try {
-        const blob = await fetch('images/full/sugarloop-menu.jpg').then((r) => r.blob());
+        const blob = await fetch('images/full/sugarloop-menu.jpg?v=2').then((r) => r.blob());
         const file = new File([blob], 'Sugarloop-Co-Menu.jpg', { type: 'image/jpeg' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           await navigator.share({ files: [file], title: 'Sugarloop Co menu', text: full });
