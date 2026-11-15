@@ -168,6 +168,54 @@ if (orderForm) {
       // Storage unavailable (private mode); the generic thank-you is shown instead
     }
   });
+
+  // Send the inquiry in the background so customers always land on our own thank-you page
+  // (FormSubmit's own pages, such as its robot check, are skipped). Without JavaScript the
+  // form still posts normally and FormSubmit redirects using the _next field.
+  orderForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = orderForm.querySelector('button[type=submit]');
+    const errorEl = orderForm.querySelector('.form-error');
+    const thanksUrl = 'thanks.html';
+
+    // Spam bots fill the hidden honeypot field; quietly pretend it worked
+    if (orderForm.elements._honey && orderForm.elements._honey.value) {
+      window.location.href = thanksUrl;
+      return;
+    }
+
+    submitBtn.disabled = true;
+    const label = submitBtn.textContent;
+    submitBtn.textContent = 'Sending…';
+    if (errorEl) {
+      errorEl.textContent = '';
+    }
+
+    const fail = (detail) => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = label;
+      if (errorEl) {
+        errorEl.textContent = `Sorry, your inquiry couldn’t be sent${detail ? ` (${detail})` : ''}. Please try again, or email us at sugarloopcollc@gmail.com.`;
+      }
+    };
+
+    try {
+      const endpoint = orderForm.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(orderForm),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && String(data.success) === 'true') {
+        window.location.href = thanksUrl;
+      } else {
+        fail(data.message);
+      }
+    } catch (err) {
+      fail('');
+    }
+  });
 }
 
 const thanksHeading = document.getElementById('thanks-heading');
