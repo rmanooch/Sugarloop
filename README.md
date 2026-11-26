@@ -39,6 +39,7 @@ The form on `order.html` is sent through [FormSubmit](https://formsubmit.co), wh
 - **Activation:** the first time the form is submitted from the live site, FormSubmit emails an activation link to sugarloopcollc@gmail.com. Click it once; inquiries are only delivered after that.
 - **Hiding the address (optional):** after activating, FormSubmit sends a random alias. Replace the email in the form's `action` with it so the address isn't visible in the page source.
 - The form only works on the live site (GitHub Pages), not when opening the file directly on your computer.
+- **Inspiration photos:** customers can attach up to 3 photos, which arrive as email attachments. Large photos are shrunk in the browser first (FormSubmit allows 10 MB per inquiry). Inquiries without photos are sent in the background; inquiries with photos are posted normally, because FormSubmit's background endpoint doesn't reliably deliver attachments. Both go straight to `thanks.html`.
 
 ## Photos
 

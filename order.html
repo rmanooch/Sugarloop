@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=18">
+  <link rel="stylesheet" href="css/style.css?v=19">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="canonical" href="https://www.sugarloopco.com/order.html">
@@ -49,7 +49,7 @@
       <div class="container form-wrap">
         <!-- Submissions are emailed to sugarloopcollc@gmail.com by FormSubmit (formsubmit.co).
              The very first submission sends an activation email to that inbox. -->
-        <form class="form" action="https://formsubmit.co/sugarloopcollc@gmail.com" method="POST">
+        <form class="form" action="https://formsubmit.co/sugarloopcollc@gmail.com" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="_subject" value="New cake inquiry from the Sugarloop Co website">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_next" value="https://www.sugarloopco.com/thanks.html">
@@ -156,6 +156,13 @@
           <label class="full">Tell us about your order
             <textarea name="message" placeholder="Colors, theme, message on the cake, design ideas, anything else we should know..."></textarea>
           </label>
+          <div class="full photo-field">
+            <label><span>Inspiration photos <span class="optional">(optional)</span></span>
+              <input type="file" name="attachment" accept="image/*">
+            </label>
+            <p class="field-hint" aria-live="polite">Seen something you love? Attach up to 3 photos or screenshots for inspiration.</p>
+            <ul class="photo-previews" hidden></ul>
+          </div>
           <p class="full form-error" aria-live="polite"></p>
           <button class="button full" type="submit">Send inquiry</button>
         </form>
@@ -178,6 +185,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=11"></script>
+  <script src="js/main.js?v=12"></script>
 </body>
 </html>

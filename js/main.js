@@ -50,6 +50,109 @@ if ('IntersectionObserver' in window && !reduceMotion) {
   });
 }
 
+// Inspiration photos: customers can attach a few pictures of treats they love
+const MAX_PHOTOS = 3;
+const MAX_UPLOAD_BYTES = 9.5 * 1024 * 1024; // FormSubmit accepts up to 10 MB of files per inquiry
+const inspirationPhotos = [];
+const photoField = document.querySelector('.photo-field');
+const photoHint = photoField && photoField.querySelector('.field-hint');
+const photoHintText = photoHint ? photoHint.textContent : '';
+
+const setPhotoHint = (text, isError) => {
+  if (!photoHint) {
+    return;
+  }
+  photoHint.textContent = text || photoHintText;
+  photoHint.classList.toggle('is-error', Boolean(isError));
+};
+
+// Phone photos can be several MB each, so large ones are resized to a sharp-enough JPEG before
+// sending. If the browser can't read a format (e.g. HEIC outside Safari), the original is sent.
+const shrinkPhoto = (file) => new Promise((resolve) => {
+  if (file.size < 1.5 * 1024 * 1024 || file.type === 'image/gif') {
+    resolve(file);
+    return;
+  }
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = () => {
+    URL.revokeObjectURL(url);
+    const scale = Math.min(1, 2000 / Math.max(img.naturalWidth, img.naturalHeight));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(img.naturalWidth * scale);
+    canvas.height = Math.round(img.naturalHeight * scale);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff'; // transparent PNGs would otherwise turn black as JPEGs
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob) => {
+      if (!blob || blob.size >= file.size) {
+        resolve(file);
+        return;
+      }
+      resolve(new File([blob], `${file.name.replace(/\.[^.]+$/, '') || 'photo'}.jpg`, { type: 'image/jpeg' }));
+    }, 'image/jpeg', 0.85);
+  };
+  img.onerror = () => {
+    URL.revokeObjectURL(url);
+    resolve(file);
+  };
+  img.src = url;
+});
+
+if (photoField) {
+  const picker = photoField.querySelector('input[type=file]');
+  const previews = photoField.querySelector('.photo-previews');
+  // Without JavaScript the picker posts a single photo itself; here photos are collected
+  // in a list instead and attached when the inquiry is sent.
+  picker.removeAttribute('name');
+  picker.multiple = true;
+
+  const renderPhotos = () => {
+    previews.querySelectorAll('img').forEach((img) => URL.revokeObjectURL(img.src));
+    previews.innerHTML = '';
+    inspirationPhotos.forEach((file, i) => {
+      const li = document.createElement('li');
+      const img = document.createElement('img');
+      img.alt = `Inspiration photo ${i + 1}`;
+      img.addEventListener('error', () => li.classList.add('no-preview'));
+      img.src = URL.createObjectURL(file);
+      const name = document.createElement('span');
+      name.className = 'photo-name';
+      name.textContent = file.name;
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'photo-remove';
+      remove.setAttribute('aria-label', `Remove ${file.name}`);
+      remove.innerHTML = '&times;';
+      remove.addEventListener('click', () => {
+        inspirationPhotos.splice(i, 1);
+        setPhotoHint();
+        renderPhotos();
+      });
+      li.append(img, name, remove);
+      previews.appendChild(li);
+    });
+    previews.hidden = !inspirationPhotos.length;
+    picker.disabled = inspirationPhotos.length >= MAX_PHOTOS;
+  };
+
+  picker.addEventListener('change', () => {
+    const chosen = Array.from(picker.files).filter((f) => f.type.startsWith('image/') || /\.hei[cf]$/i.test(f.name));
+    const room = MAX_PHOTOS - inspirationPhotos.length;
+    if (chosen.length < picker.files.length) {
+      setPhotoHint('Please choose image files (JPG, PNG or HEIC).', true);
+    } else if (chosen.length > room) {
+      setPhotoHint(`You can attach up to ${MAX_PHOTOS} photos, so only ${room === 1 ? 'the first one was' : `the first ${room} were`} added.`, true);
+    } else {
+      setPhotoHint();
+    }
+    inspirationPhotos.push(...chosen.slice(0, room));
+    picker.value = '';
+    renderPhotos();
+  });
+}
+
 // Order builder: pick items, see an estimated total, and send the list with the inquiry
 const builder = document.querySelector('.builder');
 if (builder) {
@@ -145,9 +248,9 @@ if (builder) {
     render();
   });
 
-  // Ask for at least one item or a description before sending
+  // Ask for at least one item, a description or an inspiration photo before sending
   form.addEventListener('submit', (e) => {
-    if (!order.length && !form.elements.message.value.trim()) {
+    if (!order.length && !form.elements.message.value.trim() && !inspirationPhotos.length) {
       e.preventDefault();
       e.stopImmediatePropagation();
       errorEl.textContent = 'Please add at least one item to your order, or tell us what you’d like in the box above.';
@@ -201,6 +304,51 @@ if (orderForm) {
       }
     };
 
+    // With photos attached, post the form normally: FormSubmit's background (AJAX) endpoint
+    // doesn't reliably deliver attachments. FormSubmit then redirects to thanks.html via _next.
+    if (inspirationPhotos.length) {
+      const files = await Promise.all(inspirationPhotos.map(shrinkPhoto));
+      const totalBytes = files.reduce((sum, f) => sum + f.size, 0);
+      if (totalBytes > MAX_UPLOAD_BYTES) {
+        fail('');
+        setPhotoHint('Your photos are too large to send together (10 MB max). Please remove one and try again.', true);
+        if (errorEl) {
+          errorEl.textContent = 'Your photos are too large to send together. Please remove one and try again.';
+        }
+        return;
+      }
+      try {
+        orderForm.querySelectorAll('.photo-upload').forEach((el) => el.remove());
+        files.forEach((file, i) => {
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.name = `attachment${i ? i + 1 : ''}`;
+          input.className = 'photo-upload';
+          input.hidden = true;
+          const transfer = new DataTransfer();
+          transfer.items.add(file);
+          input.files = transfer.files;
+          orderForm.appendChild(input);
+        });
+        // Skip FormSubmit's robot-check page, as the background send does; the honeypot still applies
+        const noCaptcha = document.createElement('input');
+        noCaptcha.type = 'hidden';
+        noCaptcha.name = '_captcha';
+        noCaptcha.value = 'false';
+        noCaptcha.className = 'photo-upload';
+        orderForm.appendChild(noCaptcha);
+        HTMLFormElement.prototype.submit.call(orderForm);
+      } catch (err) {
+        // Very old browsers can't attach files from script
+        orderForm.querySelectorAll('.photo-upload').forEach((el) => el.remove());
+        fail('');
+        if (errorEl) {
+          errorEl.textContent = 'Sorry, your browser couldn’t attach the photos. Please remove them and send your inquiry, then email the photos to sugarloopcollc@gmail.com.';
+        }
+      }
+      return;
+    }
+
     try {
       const endpoint = orderForm.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
       const res = await fetch(endpoint, {
@@ -216,6 +364,17 @@ if (orderForm) {
       }
     } catch (err) {
       fail('');
+    }
+  });
+
+  // If the customer comes back with the browser's Back button, re-enable the form
+  const sendLabel = orderForm.querySelector('button[type=submit]').textContent;
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+      orderForm.querySelectorAll('.photo-upload').forEach((el) => el.remove());
+      const submitBtn = orderForm.querySelector('button[type=submit]');
+      submitBtn.disabled = false;
+      submitBtn.textContent = sendLabel;
     }
   });
 }
